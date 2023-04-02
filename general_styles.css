@@ -1,0 +1,20 @@
+
+	
+	body,button,input{font-family: Serif;font-size:6pt;}
+	hr{border:0px solid red;left:0%;right:0%; height:0px;border-bottom: 1px solid blue;}
+	table tr td{border: 1px solid red}
+
+	#subcontent_list li{padding: 5px;color: navy;background: white;border-bottom : blue solid 2px; margin-bottom: 3px;}
+	#subcontent_list li:hover{padding: 7px; margin-left: 10px; color: black;background: rgba(200,272,262,1);border-bottom:0px solid red;border-left : cyan solid 2px;}
+	#subcontent_newaddlist, #subcontent_reloader,#hapus,#etcbutton{height: 40px; width: 40px; border-radius:50%; background: #fff;color: navy;font-family: Scheherazade;padding: 3px;margin: 2px;border: 1px solid blue;}
+	#subcontent_newaddlist:hover, #subcontent_reloader:hover,#hapus:hover,#etcbutton:hover{;color: red;border: 1px solid red;animation: animaterota 1s 1;}
+	#cortraiter_a,#cortraiter_b{width: 50px; height:30px; color: maroon; font-family: Scheherazade }
+	#cleaner,#swap{background: #fff;color: #4B1414;font-family: Scheherazade;padding: 3px;margin: 2px;border-bottom: 1px solid red;}
+	#selection,#selection{width:71%;height: 40px;Background:#fff;color: maroon;font-size:14pt;padding: 4px;font-family: Scheherazade;border: 1px solid blue;}
+	#selection:active,#selection:hover{color:#4B1414;border: 1px solid cyan;}
+			@keyframes animaterota{ 25%{transform: rotate(-10deg);} 75%{transform: rotate(10deg);} }
+	#content_closelist li{padding:5px; background: white; margin: 5px;}
+	#notelist,#absent{padding:10px;margin:10px;background:rgb(170,170,170)}
+	#content_selection{padding:5px; border-radius:5px; background:white}
+	
+#feature_cortrait_content, #feature_reload_cortrait{color: navy; background: rgba(240,240,240,0.9);font-family: serif;margin:10px;padding:10px;width:70%'}

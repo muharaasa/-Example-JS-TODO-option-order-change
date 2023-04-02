@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no" /> 
+	<link href="./general_styles.css" rel="stylesheet" type="text/css" />
+	<link href="add/navclass.css" rel="stylesheet" type="text/css" />
+	<link href="add/addOnNav.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<nav> 
+	<div class="wrap"> 
+		<div class="title"> Example // <sub><q>ArrayList-localStorage in vanillaJS for webbased app</q></sub></div> 
+		<div class="tblmenubox"> 
+			<div class="togel tblmenu"> </div>
+	 	</div> 
+		
+		<div class="menu">
+		 <ul>
+			<li><a href="mailto:muharasa@gmail.com">Contact Mail</a></li>
+			<li><a href="https://github.com/muharaasa">GIT'Z</a></li>
+		 </ul>
+	 	</div>
+	</div> 
+</nav>
+
+<br><br><br><br><br>
+
+<div id="absent"> <!---- next: array erase-same'value' when refresh , date calculation js on persenattendance ---->
+	<br>Total masuk: <u id='masuk_hari'></u> hari (<u id='masuk_persen'></u>%)
+	<br>Tanggal masuk: <button id='masuk_tampil'>tampilkan</button><button id='masuk_sembunyi'>sembunyi</button><button id='masuk_hapuslast'>hapus</button>
+	<ol id='masuk_tanggal'></ol>
+	<br>Present: <input  type="date" id="masuk_input"/>
+</div>
+
+<div id="notelist">
+	<p id='section_select'> <!-- dev3 : multi object-ify dev 4 : devide display-->
+		<button id='content_closebutton' style='display: block'>Select content</button>
+		<ul id='content_closelist' style='display: none'>	</ul>
+		<br>your curent listnotes:<u id='content_selection'></u><br><br>
+		<button id='help_icon'>Technical Help?</button><br>
+		<button id='feature_download_prepare'>Download as File</button>
+		<center>
+			<textarea id='feature_cortrait_content' cols='50' row='100' style='display:none'></textarea>
+			<a id='feature_download_linkdownload' download='imported.array' style='display:none' ><button>click here to save</button></a>
+			<button id='feature_download_cancel' style='display:none' >cancel</button>
+		</center>
+	</p>
+	
+	<hr>
+	<input  type="text" id="selection"/> 
+	<p>
+		<button id="subcontent_reloader">Refresh</button>
+		<button id="subcontent_newaddlist">Add</button>
+		<button id="hapus">Erase</button>
+		<button id="etcbutton">...</button>
+		<p id='moreoption' style='display:none'>
+			<button id="cleaner">clean all()</button>
+			<input type='number' id='cortraiter_a'/>
+			<input type='number' id='cortraiter_b'/>
+	 		<button id="swap">swap()</button>
+		</p>
+	</p>
+	<p id="subcontent_singlelog"></p>
+	<ol id="subcontent_list"></ol>
+</div>
+
+
+<script name='section_sorting' src='./section_sorting.js'></script>
+<script name="content_sorting" src='./content_sorting.js'></script>
+<script name="masuk_sorting" src="./masuk_sorting.js"></script>
+
+
+<button id='feature_reload_startbutton'>Loaddata (File select)</button>
+	<center>
+		<input id="feature_reload_inputfile" type="file" style='display: none'>
+	  	<textarea id="feature_reload_cortrait" style='display: none'>here are content</textarea>
+		<button id="feature_reload_button" style='display: none'>Import data</button>
+		<button id="feature_reload_cancel" style='display: none'>cancel</button>
+	</center>
+
+
+
+<script name="feature_download-reload" type='text/javascript'>
+document.getElementById('feature_reload_startbutton').addEventListener('click', function() {
+	let ix0 = feature_reload_startbutton;	let ix1 = feature_reload_inputfile;	let ix2 = feature_reload_cortrait;	let ix3 = feature_reload_button; let ix4 = feature_reload_cancel;
+
+	ix0.style.display = "none";
+		ix1.style.display = "block";
+		ix2.style.display = "block";
+		ix3.style.display = "block";
+		ix4.style.display = "block";
+});
+
+function feature_reload_unview(){
+	let ix0 = feature_reload_startbutton;	let ix1 = feature_reload_inputfile;	let ix2 = feature_reload_cortrait;	let ix3 = feature_reload_button; let ix4 = feature_reload_cancel;
+	ix0.style.display = "block";	ix1.style.display = "none";	ix2.style.display = "none";	ix3.style.display = "none";	ix4.style.display = "none";
+}
+document.getElementById('feature_reload_cancel').addEventListener('click', feature_reload_unview());
+
+///untuk Input dan read file
+document.getElementById('feature_reload_inputfile').addEventListener('change', function() {
+	var fr=new FileReader();
+	fr.onload=function(){	document.getElementById('feature_reload_cortrait').textContent=fr.result;		}
+	fr.readAsText(this.files[0]);
+});
+
+function storing_it(datadelivery){
+	let that_one_targetted = document.querySelector('#content_selection').innerHTML;
+	let retVal = confirm("Are you sure to replace"+datadelivery+" items to "+that_one_targetted+"??");
+  	if( retVal == true ){
+		let datapackaged_export = datadelivery;
+
+		localStorage.setItem(that_one_targetted,datapackaged_export);
+
+		alert('saved as:\n'+datadelivery+'\n inside:\n'+that_one_targetted); /* stored from importing*/
+		openthem();feature_reload_unview();
+	}
+   	else{ alert('Data Not  REPLACED/SAVED...');}
+}
+
+
+//<![CDATA[
+window.onload=function(){
+	(function (){	
+			var textFile = null,
+			makeTextFile = function (text){
+  				var data = new Blob([text], {type: 'text/plain'});
+				if (textFile !== null) { window.URL.revokeObjectURL(textFile); }
+				textFile = window.URL.createObjectURL(data);
+				return textFile;
+		};
+		
+ 	let feature_download_prepare = document.getElementById('feature_download_prepare');
+ 	let feature_cortrait_content = document.getElementById('feature_cortrait_content');
+	let feature_download_linkdownload = document.getElementById('feature_download_linkdownload');
+		
+		
+	feature_download_dataconfirm();// 1st try manually not working, so i let it "you're go auto do on 1st try"
+	function feature_download_dataconfirm(){
+	let that_one_targetted = document.querySelector('#content_selection').innerHTML;
+		let feature_cortrait_content = document.getElementById('feature_cortrait_content');
+		feature_cortrait_content.value = localStorage.getItem(that_one_targetted);
+	}
+	function feature_download_unorview(){
+		let x = document.getElementById('feature_download_prepare');	let y = document.getElementById('feature_download_linkdownload');let ya = document.getElementById('feature_download_cancel'); let z = document.getElementById('feature_cortrait_content');
+		if (x.style.display === "none") {x.style.display = "block";y.style.display = "none";z.style.display = "none";ya.style.display = "none";} 
+		else {x.style.display = "none";y.style.display = "block";z.style.display = "block";ya.style.display = "block";};
+	}
+	
+		
+		
+		feature_download_linkdownload.addEventListener('click', 
+	 		function (){
+	   			feature_download_unorview();
+ 			},false
+		);
+		feature_download_prepare.addEventListener('click', 
+	 		function (){
+				feature_download_dataconfirm();
+   				feature_download_linkdownload.href = makeTextFile(feature_cortrait_content.value);
+	   			feature_download_unorview();
+ 			},false
+		);
+		let feature_reload_button = document.getElementById('feature_reload_button'), feature_reload_cortrait = document.getElementById('feature_reload_cortrait');
+		feature_reload_button.addEventListener('click', 
+		 	function (){
+				storing_it(feature_reload_cortrait.value); // bukan storing 'file dipilih' ke tujuan (alert/localStorage,/ExternalLink/etc...)
+ 			},false
+		);
+		document.querySelector('#feature_download_cancel').addEventListener('click',function(){ feature_download_unorview(); });
+	})();		
+}();
+
+//]]> 
+
+</script>
+</body>
+</html>

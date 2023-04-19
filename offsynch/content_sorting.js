@@ -8,28 +8,32 @@ let subcontent_singlelog = document.querySelector('#subcontent_singlelog');
  
 
 //saat reload -function
-function openthem(){
-		let that_one_targetted = document.querySelector('#content_selection').innerHTML;
+
+	function openthem(){
+		let that_one_targetted = document.querySelector('#content_selection').innerHTML; alert(that_one_targetted);
 		
-		let subcontent_list = document.querySelector('#subcontent_list');
+		let subcontent_list = document.querySelector('#subcontent_list');///XCV1
 		subcontent_list.innerHTML = '';
 		
-		let selected_daftar = JSON.parse(localStorage.getItem(that_one_targetted));
+		let daftar_selection = JSON.parse(localStorage.getItem(that_one_targetted)); ///XCV1 if there is no data ?
+		console.log('1\n target: '+that_one_targetted+"\n is contain: => "+daftar_selection);
+		// karena kalau dipaksa forEach pada null(kekosongan) keknya absurd 
+		if(daftar_selection === null){daftar_selection = ['here some default shit','AND ANTHERSHIT THANK YOU!'];};
+		console.log('2\n target: '+that_one_targetted+"\n is contain: => "+daftar_selection);
 		
-		selected_daftar.forEach(function(something){
-			let myli = document.createElement('li');
-			myli.innerHTML = something;
-			subcontent_list.appendChild(myli);
+		daftar_selection.forEach(function(xcdiv){
+			let openthemlist = document.createElement('li');
+			openthemlist.innerHTML = xcdiv;
+			subcontent_list.appendChild(openthemlist);
 		});
 }
 
 	let sans = ['daftar_selection', 'daftar_todonow', 'daftar_rencana','daftar_error']; 
 ///prekondisi sebelum terasu dijalankan
-		let content_selection = document.querySelector('#content_selection');
+	let content_selection = document.querySelector('#content_selection');
 		content_selection.innerHTML = 0;///jaga-jaga aja klo undefined
-		
-		terasu();
-function terasu(){
+	
+	function terasu(){
 	let eyn = content_selection.innerHTML;
 	let sans_target =  sans[eyn];
 
@@ -43,8 +47,8 @@ function terasu(){
 		myli.innerHTML = something;
 		content_closelist.appendChild(myli);
 	});		
-	openthem();/// sebenernya akan bisa "lag" bila terlalu panjang arraynya, namun ini dipanggil biar mudah aja 
 }
+	terasu(); openthem(); 	/// sebenernya akan bisa "lag" bila terlalu panjang arraynya, namun ini dipanggil biar mudah aja 
 
 
 

@@ -1,0 +1,14 @@
+
+Note - cortrait
+
+after XCV 1 and XCV 2 in the Offsynch folder
+
+There is a name change left behind during version control so that when the script execution does not find the variable it is asked to operate 
+    (making every existing activity and operation with a missing variable go error 
+     "null value ---> the operation does not run" )
+
+Example: The variable "subcontent_list" which in the original version was a variable named "tampilan", when there is a change in the scripts regarding an operation that involves mentioning the variable *with a name that is still from the old version* (e.g.: "tampilan").
+  while the system does not find the old name variable causing the execution result to be an error (previous case: null, the program is truncated in the middle of the operation).
+
+more vulnerable when files are separated ( such as errors on before XCV 1 &; 2 on file://offsynch/content_sorting).
+

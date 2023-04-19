@@ -61,6 +61,8 @@ subnext if ada date yang sama bilang dah ada
 next  remove specific date
 next date calculation 
 
-unwilled next ganti nama dan penyusunanyang monoton no automasi
+unwilled next ganti nama dan penyusunan yang monoton no automasi
 unwilled subnext tell what erased
+
+next quest reward & plan on date(?)
 */

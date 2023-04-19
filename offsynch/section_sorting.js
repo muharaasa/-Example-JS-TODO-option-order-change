@@ -15,7 +15,7 @@
 			let index = nodes.indexOf(li); 
 
 			document.querySelector('#content_selection').innerHTML = index;	
-								terasu();
+			terasu(); openthem();
 		}
 	}
 	function content_unorviewlist(){

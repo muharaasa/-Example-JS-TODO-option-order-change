@@ -1,4 +1,5 @@
 
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -42,7 +43,7 @@ table tr td{border: 1px solid red}
 
 <div id="notelist">
 	<p id='section_select'> <!-- dev3 : multi object-ify dev 4 : devide display-->
-		your curent listnotes: <u id='testting'></u><br><br>
+		your curent listnotes: <u id='testting'></u><br><br><!----- XCV1 daftar_selection: to remind forEach Javascript no null--->
 		<button id='help_icon'>Technical Help?</button>
 		<button id='content_closebutton'>Select content</button>
 		<ul id='content_closelist' style='display: none'>	</ul>
@@ -52,7 +53,7 @@ table tr td{border: 1px solid red}
 	
 	<hr>
 	<input  type="text" id="selection"/> 
-	<p>
+	<p> I am invuncibel
 		<button id="ambil">Refresh</button>
 		<button id="isikan">Add</button>
 		<button id="hapus">Erase</button>
@@ -90,6 +91,7 @@ table tr td{border: 1px solid red}
 			let index = nodes.indexOf( li ); 
 			
 			document.querySelector('#testting').innerHTML =index; terasu(); //mnv1
+			openthem();//xcv2
 		}
 	}
 	function content_unorviewlist(){
@@ -110,36 +112,21 @@ document.querySelector('#help_icon').addEventListener('click',function(e){
 });
 
 
-let pesan = document.querySelector('#pesan');		
- 
+let pesan = document.querySelector('#pesan');
 
-//saat reload -function
-function openthem(){
-		let that_one_targetted = document.querySelector('#testting').innerHTML;
-		
-		let tampilan = document.querySelector('ol#tampilan');
-		tampilan.innerHTML='';
-		
-		let daftar_selection = JSON.parse(localStorage.getItem(that_one_targetted));
-		
-		daftar_selection.forEach(function(xcdiv){
-			let myli = document.createElement('li');
-			myli.innerHTML = xcdiv;
-			tampilan.appendChild(myli);
-		});
-}
 
 	let sans = ['daftar_selection', 'daftar_todonow', 'daftar_rencana','daftar_error']; 
 	///prekondisi sebelum terasu dijalankan
 		let testting = document.querySelector('#testting');
 		testting.innerHTML = 0;///jaga-jaga aja klo undefined
-	terasu();
-
-function terasu(){
-	let eyn = testting.innerHTML;
+	
+	
+	
+	function terasu(){
+	let eyn = testting.innerHTML; 
 	let sans_target =  sans[eyn];
 
-	document.querySelector('#testting').innerHTML = sans_target;
+	document.querySelector('#testting').innerHTML = sans_target; alert(sans_target);
 	
 	let content_closelist = document.querySelector('#content_closelist');
 			content_closelist.innerHTML='';
@@ -149,9 +136,32 @@ function terasu(){
 		myli.innerHTML = each_section_list;
 		content_closelist.appendChild(myli);
 	});
-		
-	openthem();//alert('silahkan reload...');/// sebenernya akan bisa "lag" bila terlalu panjang arraynya, namun ini dipanggil biar mudah aja 
 }
+
+	terasu();
+
+	function openthem(){
+		let that_one_targetted = document.querySelector('#testting').innerHTML;
+		
+		let tampilan = document.querySelector('#tampilan');///XCV1
+		tampilan.innerHTML = '';
+		
+		let daftar_selection = JSON.parse(localStorage.getItem(that_one_targetted)); ///XCV1 if there is no data ?
+		alert('1\n target: '+that_one_targetted+"\n is contain: => "+daftar_selection);
+		// karena kalau dipaksa forEach pada null(kekosongan) keknya absurd 
+		if(daftar_selection === null){daftar_selection = ['here some default shit','AND ANTHERSHIT THANK YOU!'];};
+		alert('2\n target: '+that_one_targetted+"\n is contain: => "+daftar_selection);
+		
+		daftar_selection.forEach(function(xcdiv){
+			let openthemlist = document.createElement('li');
+			openthemlist.innerHTML = xcdiv;
+			tampilan.appendChild(openthemlist);
+		});
+}
+
+
+	openthem();//alert('silahkan reload...');/// sebenernya akan bisa "lag" bila terlalu panjang arraynya, namun ini dipanggil biar mudah aja 
+
 //saat reload -declaation
 	document.querySelector('#ambil').addEventListener('click',function(e){	openthem(); pesan.innerHTML = 'here what we have: ' });
 	
